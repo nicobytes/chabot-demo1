@@ -1,4 +1,4 @@
-import { Controller, Get, Req, Res } from '@nestjs/common';
+import { Controller, Post, Req, Res } from '@nestjs/common';
 import { BotAdapterService } from './../services/bot-adapter.service';
 
 @Controller('api/messages')
@@ -8,7 +8,7 @@ export class MessagesController {
     private botAdapter: BotAdapterService,
   ) {}
 
-  @Get()
+  @Post()
   async messages(@Req() request, @Res() response) {
     return await this.botAdapter.proceessActivity(request, response);
   }

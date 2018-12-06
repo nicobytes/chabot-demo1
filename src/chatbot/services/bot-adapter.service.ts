@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import * as botbuilder from 'botbuilder';
 
 import { ConfigService } from './../../core/services/config.service';
-import { async } from 'rxjs/internal/scheduler/async';
 
 @Injectable()
 export class BotAdapterService {
@@ -24,7 +23,11 @@ export class BotAdapterService {
     this.botFrameworkAdapter.processActivity(request, response, async (turnContext) => {
       if (turnContext.activity.type === 'message') {
         const utterance = turnContext.activity.text;
-        await turnContext.sendActivity(`Tu dijiste ${utterance}`);
+        if (utterance === 'Hola') {
+          await turnContext.sendActivity(`Hola, como estas?`);
+        }else {
+          await turnContext.sendActivity(`Tu dijiste ${utterance}`);
+        }
       }
     });
   }
